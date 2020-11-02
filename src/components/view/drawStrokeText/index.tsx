@@ -3,39 +3,44 @@ import React from 'react'
 import { Text } from './text'
 // учти при переборе пробел
 
-interface IDrawStrokeTextProps{
-	content: string
+interface IStyleProps{
+	fill?: string
+	fillDuration?: string
+	strokeColor?: string
+	fontSize?: number
+	strokeWidth?: string
+	transition?: string
+	opacity?: number
 }
 
-const DrawStrokeText:React.FC<IDrawStrokeTextProps> = ({ content }) => {
-	const [arr, setArr] = React.useState<string[]|[]>([])
-	React.useEffect(()=>{
-		const subString = content.split('')
-		setArr(subString)
-	},[])
-	
-	const svgRef:React.MutableRefObject<SVGSVGElement | null> = React.useRef(null)
+interface ISvgParamsProps{
+	viewBox: string
+	width: string
+	height: string
+}
 
+interface IDrawStrokeTextProps{
+	content: string
+	className?: string
+	svgParams?: ISvgParamsProps
+	style: IStyleProps
+}
+
+const DrawStrokeText:React.FC<IDrawStrokeTextProps> = ({ content, className, svgParams, style }) => {
 	return(
-		<div className='wrapper__drawer'>
+		<div className={className}>
 			<svg 
 				version="1.1" 
-				xmlns="http://www.w3.org/2000/svg"  
-				viewBox="0 0 300 100"
-				ref={ svgRef }
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox={ svgParams?.viewBox || '0 0 100 100'}
+				width={ svgParams?.viewBox ||'100%'}
+				height={ svgParams?.viewBox ||'100%'}
 			>
-				{
-					(arr as string[]).map((letter:string, i:number)=>
-						<Text 
-							letter={ letter }
-							i={i}
-							svgRef={ svgRef }
-
-							key={ letter+i }
-						/>
-					)
-				}
-				
+				<Text 
+					word={ content }
+					style={ style }
+					key={ content }
+				/>
 			</svg>
 		</div>
 	)

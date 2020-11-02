@@ -1,41 +1,44 @@
 import React from 'react'
 // учти при переборе пробел
 
-interface ITextProps{
-	letter: string
-	i: number
-	svgRef: React.MutableRefObject<SVGSVGElement | null>
+interface IStyleProps{
+	fill?: string
+	fillDuration?: string
+	strokeColor?: string
+	fontSize?: number
+	strokeWidth?: string
+	transition?: string
+	opacity?: number
 }
 
-const Text:React.FC<ITextProps> = ({ letter, i, svgRef }) => {
-	const [shiftX, setShiftX] =  React.useState(0)
+interface ITextProps{
+	word: string
+
+	style: IStyleProps
+}
+
+const Text:React.FC<ITextProps> = ({ word, style}) => {
 	const [styles, setStyles] = React.useState({
-		fill: 'none',
-		fontSize: '30px',
-		stroke: '#1280c9',
 		opacity: 0,
-		strokeWidth: '1',
 		strokeDasharray: 0,
 		strokeDashoffset: 0
 	})
+	const text:React.RefObject<SVGTextElement> = React.useRef(null)
 
 	React.useEffect(()=>{
-		const elArea = svgRef!.current!.getElementById(`${i}`).clientWidth*30/4
+		const factor: number = style.fontSize || 30
+		const elArea: number = text!.current!.clientWidth*factor/7
 		setStyles(styles=>({
 			...styles,
 			strokeDasharray: Math.round(elArea),
 			strokeDashoffset: Math.round(elArea),
-			opacity: 1,
+			opacity: style.opacity || 1,
 		}))
-		if(svgRef.current && i>0){
-			for(let j = 0; j<i; j++){
-				setShiftX(shiftX => shiftX += svgRef!.current!.getElementById(`${j}`).clientWidth)
-			}
-		}
+
 	}, [])
 
 	React.useEffect(()=>{
-		if(styles.strokeDashoffset > 0)setTimeout(anim, 40)
+		if(styles.strokeDashoffset > 0)setTimeout(anim, 10)
 	},[styles.strokeDashoffset])
 
 	const anim = ():void =>{
@@ -47,23 +50,30 @@ const Text:React.FC<ITextProps> = ({ letter, i, svgRef }) => {
 
 	return(
 		<text
-			className={styles.strokeDashoffset === 0 ? 'svgtext' : ''}
-			id={`${i}`} 
-			y='30'
-			x={ shiftX }
+			ref={ text }
+			y={`${style.fontSize || 30}`}
+			x='50%'
+			textAnchor='middle'
 			style={{
-				fill: styles.fill,
-				fontSize: styles.fontSize,
+				fill: 'none',
+				fontSize: `${style.fontSize || 30}px`,
 				opacity: styles.opacity,
-				stroke: styles.stroke, 
-				strokeWidth: styles.strokeWidth,
+				stroke: style.strokeColor || '#1280c9', 
+				strokeWidth: style.strokeWidth || '1',
 				strokeDasharray: styles.strokeDasharray,
 				strokeDashoffset: styles.strokeDashoffset,
-				strokeLinecap: 'round'
+				strokeLinecap: 'round',
+				transition: style.transition || 'none'
 			}}
-			key={i}
 		>
-			{letter}
+			<animate
+				attributeName='fill'
+				from='rgba(0,0,0,0)'
+				to={style.fill || 'rgba(0,0,0,0)'}
+				dur={style.fillDuration || '3s'}
+				fill='freeze'
+			/>
+			{word}
 		</text>
 	)
 }

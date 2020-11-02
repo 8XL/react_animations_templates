@@ -4,3 +4,30 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.svg-wrapper {
+  position: absolute;
+
+  &.first{
+    top: 20.7%;
+    transform: translate(-0.7%, -50%);
+    width: 400px;
+    height: 150px;
+
+  }
+  &.second{
+    top: 20%;
+    transform: translate(0, -50%);
+    width: 400px;
+    height: 150px;
+  }
+  &.third{
+    top: 40%;
+    transform: translate(0, -50%);
+    width: 400px;
+    height: 150px;
+  }
+}
+
+
+
