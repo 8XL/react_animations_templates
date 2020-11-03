@@ -26,7 +26,7 @@ interface IDrawStrokeTextProps{
 	style: IStyleProps
 }
 
-const DrawStrokeText:React.FC<IDrawStrokeTextProps> = ({ content, className, svgParams, style }) => {
+const DrawStrokeText:React.FC<IDrawStrokeTextProps> = React.memo(({ content, className, svgParams, style }) => {
 	return(
 		<div className={className}>
 			<svg 
@@ -44,6 +44,6 @@ const DrawStrokeText:React.FC<IDrawStrokeTextProps> = ({ content, className, svg
 			</svg>
 		</div>
 	)
-}
+})
 
 export { DrawStrokeText }

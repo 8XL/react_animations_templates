@@ -17,7 +17,7 @@ interface ITextProps{
 	style: IStyleProps
 }
 
-const Text:React.FC<ITextProps> = ({ word, style}) => {
+const Text:React.FC<ITextProps> = React.memo(({ word, style}) => {
 	const [styles, setStyles] = React.useState({
 		opacity: 0,
 		strokeDasharray: 0,
@@ -55,7 +55,7 @@ const Text:React.FC<ITextProps> = ({ word, style}) => {
 			x='50%'
 			textAnchor='middle'
 			style={{
-				fill: 'none',
+				fill: 'rgba(0,0,0,0)',
 				fontSize: `${style.fontSize || 30}px`,
 				opacity: styles.opacity,
 				stroke: style.strokeColor || '#1280c9', 
@@ -76,6 +76,6 @@ const Text:React.FC<ITextProps> = ({ word, style}) => {
 			{word}
 		</text>
 	)
-}
+})
 
 export { Text }

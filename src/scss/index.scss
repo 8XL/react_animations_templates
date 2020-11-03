@@ -1,3 +1,6 @@
+@import 'variables';
+@import 'libs/normalize';
+
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
@@ -5,25 +8,39 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.container{
+  width: calc(100vw - 100px);
+  height: 100%;
+  background-color: #fff;
+  margin: 0 auto;
+  border-radius: $radius;
+	max-width: 1400px;
+}
+
+.wrapper {
+  display: flex;
+
+}
+
 .svg-wrapper {
   position: absolute;
-
+  left: 50%;
   &.first{
     top: 20.7%;
-    transform: translate(-0.7%, -50%);
+    transform: translate(-50.7%, -50%);
     width: 400px;
     height: 150px;
 
   }
   &.second{
     top: 20%;
-    transform: translate(0, -50%);
+    transform: translate(-50%, -50%);
     width: 400px;
     height: 150px;
   }
   &.third{
     top: 40%;
-    transform: translate(0, -50%);
+    transform: translate(-50%, -50%);
     width: 400px;
     height: 150px;
   }
