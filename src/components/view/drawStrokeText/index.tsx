@@ -6,6 +6,7 @@ import { Text } from './text'
 interface IStyleProps{
 	fill?: string
 	fillDuration?: string
+	fillDelay?: string
 	strokeColor?: string
 	fontSize?: number
 	strokeWidth?: string

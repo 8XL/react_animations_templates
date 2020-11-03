@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="container">
       <div className='wrapper__stroked-animations'>
-        <input onChange={e=>setStroked(e.target.value)} placeholder={stroked}/>
+        <input onChange={e=>setStroked(e.target.value)} placeholder={stroked} maxLength={12}/>
         <DrawStrokeText 
           content={stroked}
           className='svg-wrapper first' 
@@ -38,7 +38,8 @@ function App() {
             transition: '2s',
             strokeWidth: '1.5',
             fill: '#c97da4',
-            fillDuration: '5s'
+            fillDuration: '0.25s',
+            fillDelay: '4.5s'
           }}
         />
       </div>

@@ -4,6 +4,7 @@ import React from 'react'
 interface IStyleProps{
 	fill?: string
 	fillDuration?: string
+	fillDelay?: string
 	strokeColor?: string
 	fontSize?: number
 	strokeWidth?: string
@@ -70,7 +71,8 @@ const Text:React.FC<ITextProps> = React.memo(({ word, style}) => {
 				attributeName='fill'
 				from='rgba(0,0,0,0)'
 				to={style.fill || 'rgba(0,0,0,0)'}
-				dur={style.fillDuration || '3s'}
+				dur={style.fillDuration || '0.25s'}
+				begin={style.fillDelay || '2s'}
 				fill='freeze'
 			/>
 			{word}
